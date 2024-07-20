@@ -44,6 +44,8 @@ zinit cdreplay -q
 bindkey -e
 bindkey '^p' history-search-backward 
 bindkey '^n' history-search-forward
+bindkey ";5C" forward-word
+bindkey ";5D" backward-word
 
 HISTSIZE=5000 
 HISTFILE=~/.zsh_history
@@ -70,12 +72,13 @@ alias c='clear'
 eval "$(fzf --zsh)"
 
 function checkCommandInstalled(){
-  
+  if 
 
 }
 
 function gip(){
-  # first checking if GH is installed 
+  # first checking if GH is installed:wq
+
   
 }
 
