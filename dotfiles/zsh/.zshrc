@@ -70,6 +70,7 @@ alias c='clear'
 
 
 eval "$(fzf --zsh)"
+eval "$(zoxide init --cmd cd zsh)"
 
 function checkCommandInstalled(){
   if [[ $# -eq 0 ]]; then 
