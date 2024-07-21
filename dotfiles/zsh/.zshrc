@@ -95,7 +95,8 @@ function gip(){
   checkCommandInstalled gh 
 
   # then let's see if the user has added the repo name 
-  if [$# -eq 0] then 
+  if [$# -eq 0]
+  then 
     echo "Please enter the repo name, exiting"
     return 1 
   fi 
@@ -124,4 +125,6 @@ function gip(){
 
 }
 
-
+function mkcd(){
+  mkdir -p "$1" && cd "$1"
+}
