@@ -72,14 +72,56 @@ alias c='clear'
 eval "$(fzf --zsh)"
 
 function checkCommandInstalled(){
-  if 
+  if [[ $# -eq 0 ]]; then 
+    echo "No input has been given to the <command_name> command"
+    return 2
+  fi 
 
+  local command_name="$1"
+  precursorText = "Commanad"
+
+
+  if command -v "$command_name" &> /dev/null 
+  then 
+    echo "$precursorText $command_name is installed"
+    return 0 
+  else 
+    echo "$precursorText $command_name is not installed" 
+  fi
 }
 
 function gip(){
   # first checking if GH is installed:wq
+  checkCommandInstalled gh 
 
+  # then let's see if the user has added the repo name 
+  if [$# -eq 0] then 
+    echo "Please enter the repo name, exiting"
+    return 1 
+  fi 
+
+  loacl repo_name="$1"
   
+  if gh repo create "$repo_name" --public; then 
+    echo "Repo succesfully created"
+  else 
+    echo "Failed to create the repo"
+    return 1
+  fi 
+
+  if [! -d .git]; then 
+    git init 
+  fi
+
+  githubUsername=$(gh api user --jq .login)
+  git remote add origin "git@github.com:$githubUsername/$repo_name.git"
+
+  git branch -M main 
+
+  echo "Repo $repo_name created succesfully on Github and initialised locally"
+  echo "Remote origin set to: git@github.com:$githubUsername/$repo_name.git"
+
+
 }
 
 
