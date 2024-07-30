@@ -96,7 +96,7 @@ function gir(){
   checkCommandInstalled gh 
 
   # then let's see if the user has added the repo name 
-  if [$# -eq 0]
+  if [ $# -eq 0 ]
   then 
     echo "Please enter the repo name, exiting"
     return 1 
