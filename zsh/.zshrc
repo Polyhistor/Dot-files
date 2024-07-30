@@ -79,7 +79,7 @@ function checkCommandInstalled(){
   fi 
 
   local command_name="$1"
-  precursorText = "Commanad"
+  precursorText="Commanad"
 
 
   if command -v "$command_name" &> /dev/null 
@@ -91,7 +91,7 @@ function checkCommandInstalled(){
   fi
 }
 
-function gip(){
+function gir(){
   # first checking if GH is installed:wq
   checkCommandInstalled gh 
 
@@ -128,4 +128,9 @@ function gip(){
 
 function mkcd(){
   mkdir -p "$1" && cd "$1"
+}
+
+function gsrr(){ 
+
+
 }
