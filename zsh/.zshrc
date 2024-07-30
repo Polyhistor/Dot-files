@@ -102,7 +102,7 @@ function gir(){
     return 1 
   fi 
 
-  loacl repo_name="$1"
+  local repo_name="$1"
   
   if gh repo create "$repo_name" --public; then 
     echo "Repo succesfully created"
