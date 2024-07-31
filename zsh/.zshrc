@@ -72,6 +72,9 @@ alias c='clear'
 eval "$(fzf --zsh)"
 eval "$(zoxide init --cmd cd zsh)"
 
+autoload -U select-word-style
+select-word-style bash
+
 function checkCommandInstalled(){
   if [[ $# -eq 0 ]]; then 
     echo "No input has been given to the <command_name> command"
