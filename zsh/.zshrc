@@ -114,7 +114,7 @@ function gir(){
     return 1
   fi 
 
-  if [! -d .git]; then 
+  if [ ! -d .git ]; then 
     git init 
   fi
 
