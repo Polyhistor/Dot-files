@@ -23,6 +23,8 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 zinit light Aloxaf/fzf-tab
+zinit snippet OMZP::docker
+zinit snippet OMZP::sudo
 
 # Defining this function for ohMyZshGit 
 function git_current_branch() {
@@ -64,6 +66,8 @@ zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
 zstyle ':completion:*' meno no
 zstyle ':fzf-tab:complete:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z' fzf-preview 'ls --color $realpath'
+zstyle ':completion:*:*:docker:*' option-stacking yes
+zstyle ':completion:*:*:docker-*:*' option-stacking yes
 
 alias ls='ls --color'
 alias c='clear'
