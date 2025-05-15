@@ -1,0 +1,195 @@
+cat > ~/.aerospace.toml << 'EOF'
+# AeroSpace configuration optimized for M3 Mac
+# Start AeroSpace at login
+start-at-login = true
+
+# Default layout settings
+default-root-container-layout = 'tiles'
+default-root-container-orientation = 'horizontal'
+
+# Normalization settings
+enable-normalization-flatten-containers = true
+enable-normalization-opposite-orientation-for-nested-containers = true
+
+# Mouse follows focus when focused monitor changes
+on-focused-monitor-changed = ['move-mouse monitor-lazy-center']
+
+# Force tiling on startup
+after-startup-command = ['layout tiles']
+
+# Add gaps/padding between windows - adjusted for consistency
+[gaps]
+    inner.horizontal = 8
+    inner.vertical = 8
+    outer.left = 8
+    outer.right = 8
+    outer.top = 8
+    outer.bottom = 8
+
+# Auto-tile all windows by default
+[[on-window-detected]]
+    check-further-callbacks = true
+    run = 'layout tiling'
+
+# Key mapping preset
+[key-mapping]
+    preset = 'qwerty'
+
+# Main binding mode
+[mode.main.binding]
+    # Window focus with ARROW KEYS
+    alt-left = 'focus left'
+    alt-down = 'focus down'
+    alt-up = 'focus up'
+    alt-right = 'focus right'
+    
+    # Move windows with Alt+Shift+ARROW KEYS
+    alt-shift-left = 'move left'
+    alt-shift-down = 'move down'
+    alt-shift-up = 'move up'
+    alt-shift-right = 'move right'
+    
+    # Simple resize with plus/minus keys
+    alt-minus = 'resize smart -50'
+    alt-equal = 'resize smart +50'
+    
+    # Layouts
+    alt-slash = 'layout tiles horizontal vertical'
+    alt-f = 'layout floating tiling'
+    alt-t = 'layout tiles'
+    
+    # Enter custom arrangement mode - for manual management
+    alt-a = 'mode arrange'
+    
+    # Application launchers - IMPROVED with AppleScript to activate existing windows
+    # Kitty terminal - Command+K
+    cmd-k = '''exec-and-forget osascript -e '
+    tell application "kitty"
+        activate
+    end tell'
+    '''
+    
+    # Microsoft Teams - Command+T (MULTIPLE APPROACHES)
+    cmd-t = '''exec-and-forget osascript -e '
+    -- First try the default name
+    try
+        tell application "Microsoft Teams"
+            activate
+        end tell
+    end try
+    
+    -- If that fails, try "Microsoft Teams classic"
+    try
+        tell application "Microsoft Teams classic"
+            activate
+        end tell
+    end try
+    
+    -- If that fails, try "Teams"
+    try
+        tell application "Teams"
+            activate
+        end tell
+    end try
+    
+    -- Last resort: Try directly opening it
+    try
+        tell application "Finder"
+            open application file "Microsoft Teams" of folder "Applications" of startup disk
+        end tell
+    end try'
+    '''
+    
+    # Slack - Command+S (with improved activation)
+    cmd-s = '''exec-and-forget osascript -e '
+    tell application "Slack"
+        activate
+    end tell'
+    '''
+    
+    # Brave Browser - Command+B (MODIFIED TO ALWAYS OPEN NEW WINDOW)
+    cmd-b = '''exec-and-forget osascript -e '
+    tell application "Brave Browser"
+        -- Activate the app first
+        activate
+        
+        -- Create a new window
+        tell application "System Events"
+            -- Send Command+N to create a new window
+            keystroke "n" using {command down}
+        end tell
+    end tell'
+    '''
+    
+    # Alternative Brave command if AppleScript doesn't work well
+    cmd-shift-b = 'exec-and-forget open -n -a "Brave Browser"'
+    
+    # Cursor - Ctrl+Shift+C (with improved activation)
+    ctrl-shift-c = '''exec-and-forget osascript -e '
+    tell application "Cursor"
+        activate
+    end tell'
+    '''
+    
+    # Workspace switching
+    alt-1 = 'workspace 1'
+    alt-2 = 'workspace 2'
+    alt-3 = 'workspace 3'
+    alt-4 = 'workspace 4'
+    alt-5 = 'workspace 5'
+    alt-6 = 'workspace 6'
+    alt-7 = 'workspace 7'
+    alt-8 = 'workspace 8'
+    alt-9 = 'workspace 9'
+    
+    # Move windows to workspaces
+    alt-shift-1 = 'move-node-to-workspace 1'
+    alt-shift-2 = 'move-node-to-workspace 2'
+    alt-shift-3 = 'move-node-to-workspace 3'
+    alt-shift-4 = 'move-node-to-workspace 4'
+    alt-shift-5 = 'move-node-to-workspace 5'
+    alt-shift-6 = 'move-node-to-workspace 6'
+    alt-shift-7 = 'move-node-to-workspace 7'
+    alt-shift-8 = 'move-node-to-workspace 8'
+    alt-shift-9 = 'move-node-to-workspace 9'
+    
+    # Quick workspace switching
+    alt-tab = 'workspace-back-and-forth'
+    
+    # Enter service mode
+    alt-shift-s = 'mode service'
+
+# Service binding mode for less common operations
+[mode.service.binding]
+    esc = ['reload-config', 'mode main']
+    r = ['flatten-workspace-tree', 'mode main']
+    backspace = ['close-all-windows-but-current', 'mode main']
+    k = ['exec-and-forget killall kitty', 'mode main']
+    t = ['flatten-workspace-tree', 'layout tiles horizontal', 'mode main']
+    
+    # Reset spacing - helpful when gaps look inconsistent
+    g = ['reload-config', 'mode main']
+
+# Custom window arrangement mode for creating spiral/dwindle layouts
+[mode.arrange.binding]
+    # Exit arrangement mode
+    esc = 'mode main'
+    
+    # Join windows in different directions (creates nested containers)
+    h = ['join-with left', 'mode main']
+    j = ['join-with down', 'mode main']
+    k = ['join-with up', 'mode main']
+    l = ['join-with right', 'mode main']
+    
+    # Also support arrow keys for joining
+    left = ['join-with left', 'mode main']
+    down = ['join-with down', 'mode main']
+    up = ['join-with up', 'mode main']
+    right = ['join-with right', 'mode main']
+    
+    # Split horizontally/vertically
+    s = ['layout tiles horizontal vertical', 'mode main']
+    
+    # Reset layout
+    r = ['flatten-workspace-tree', 'layout tiles', 'mode main']
+EOF
